@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#071014" />
+    <meta name="description" content="Guide a neutron through a CANDU calandria, moderate its energy, and sustain the fission lineage." />
+    <title>Neutron Drift: CANDU</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="Neutron Drift home">
+          <span class="brand-mark" aria-hidden="true"><i></i></span>
+          <span><strong>NEUTRON DRIFT</strong><small>CANDU</small></span>
+        </a>
+        <div class="header-actions">
+          <span class="model-tag"><i></i> EDUCATION MODEL</span>
+          <button class="icon-button" id="guide-button" type="button" aria-label="Hide flight guide" title="Toggle dotted flight guide">Guide on</button>
+          <button class="icon-button" id="sound-button" type="button" aria-label="Mute sound" title="Mute sound">Sound on</button>
+          <button class="icon-button" id="pause-button" type="button" aria-label="Pause game" title="Pause game">Pause</button>
+        </div>
+      </header>
+
+      <main class="game-layout">
+        <section class="play-column" aria-label="Neutron simulation">
+          <div class="score-strip" aria-live="polite">
+            <div><span>Score</span><strong id="score-value">000000</strong></div>
+            <div><span>Lineage</span><strong id="lineage-value">01</strong></div>
+            <div><span>Best</span><strong id="best-value">00</strong></div>
+            <div class="signal"><span>Signal</span><strong id="signal-value">STANDBY</strong></div>
+          </div>
+
+          <div class="reactor-frame" id="reactor-frame">
+            <div class="frame-label frame-label-top">CALANDRIA // END-ON SLICE</div>
+            <canvas id="game-canvas" width="1000" height="1000" aria-label="A top-down arcade simulation of a neutron moving through a CANDU calandria"></canvas>
+            <div class="canvas-message" id="canvas-message" aria-live="polite"></div>
+
+            <section class="game-overlay visible" id="start-overlay" aria-labelledby="start-title">
+              <div class="eyebrow">NEUTRON LIFE CYCLE // 01</div>
+              <h1 id="start-title">Born fast.<br /><em>Keep the chain alive.</em></h1>
+              <p>Intercept drifting deuterium until the energy meter turns cyan, then touch any orange fuel channel to fission. Radioactive-green channels are always lethal.</p>
+              <div class="start-controls">
+                <div><kbd>WASD</kbd><span>or arrow keys</span></div>
+                <div><span class="gesture-icon" aria-hidden="true">◎</span><span>drag to steer</span></div>
+              </div>
+              <button class="primary-button" id="start-button" type="button"><span>Begin lineage</span><b>→</b></button>
+              <small>Scientific concepts are simplified for play.</small>
+            </section>
+
+            <section class="game-overlay report" id="gameover-overlay" aria-labelledby="report-title">
+              <div class="eyebrow" id="death-label">LINEAGE ENDED</div>
+              <h2 id="report-title">Resonance capture</h2>
+              <p id="report-explanation">Uranium-238 absorbed you while your energy crossed its resonance range.</p>
+              <div class="report-stats">
+                <div><span>Score</span><strong id="report-score">0</strong></div>
+                <div><span>Generations</span><strong id="report-lineage">0</strong></div>
+                <div><span>Best</span><strong id="report-best">0</strong></div>
+              </div>
+              <div class="lesson" id="report-tip">Use the moderator lanes to become thermal before entering fuel.</div>
+              <button class="primary-button" id="restart-button" type="button"><span>Start new lineage</span><b>↻</b></button>
+              <button class="text-button" id="ledger-button" type="button" aria-expanded="false">Open neutron ledger</button>
+              <div class="ledger" id="ledger-panel" hidden></div>
+            </section>
+
+            <section class="game-overlay pause-overlay" id="pause-overlay" aria-labelledby="pause-title">
+              <div class="eyebrow">SIMULATION HELD</div>
+              <h2 id="pause-title">Paused</h2>
+              <p>Your neutron is suspended in the moderator.</p>
+              <button class="primary-button" id="resume-button" type="button"><span>Resume</span><b>→</b></button>
+            </section>
+          </div>
+
+          <div class="touch-controls" id="touch-controls" aria-label="Touch steering control">
+            <div class="joystick" id="joystick"><div class="joystick-knob" id="joystick-knob"></div></div>
+            <p>Drag to steer</p>
+          </div>
+        </section>
+
+        <aside class="instrument-panel" aria-label="Neutron instruments">
+          <section class="energy-panel">
+            <div class="panel-heading"><span>ENERGY STATE</span><b id="energy-readout">2.00 MeV</b></div>
+            <div class="energy-track" aria-hidden="true">
+              <div class="energy-fill" id="energy-fill"></div>
+              <i class="energy-marker" id="energy-marker"></i>
+            </div>
+            <div class="energy-labels"><span>THERMAL</span><span>RESONANCE</span><span>FAST</span></div>
+            <div class="state-card fast" id="state-card">
+              <i></i>
+              <div><span id="state-name">FAST NEUTRON</span><p id="state-copy">Too energetic to trigger fission. Find deuterium first.</p></div>
+            </div>
+          </section>
+
+          <section class="objective-panel">
+            <div class="panel-heading"><span>CURRENT OBJECTIVE</span><b id="objective-index">01</b></div>
+            <div class="objective-visual" aria-hidden="true">
+              <span class="mini-neutron"></span><i></i><span class="mini-fuel"></span>
+            </div>
+            <h3 id="objective-title">Moderate your speed</h3>
+            <p id="objective-copy">Fast neutrons pass through orange fuel. Intercept drifting deuterium until the energy meter turns cyan.</p>
+          </section>
+
+          <section class="legend-panel">
+            <div class="panel-heading"><span>CALANDRIA KEY</span></div>
+            <ul>
+              <li><i class="key-neutron"></i><span><b>You</b>Controlled neutron</span></li>
+              <li><i class="key-deuterium"></i><span><b>Deuterium</b>Drifts, slows, and deflects</span></li>
+              <li><i class="key-fuel"></i><span><b>Fuel channel</b>Fission target</span></li>
+              <li><i class="key-poison"></i><span><b>Poisoned channel</b>Green glow—avoid contact</span></li>
+            </ul>
+          </section>
+
+          <section class="field-note">
+            <span>FIELD NOTE</span>
+            <p id="field-note">Heavy water is an unusually efficient moderator because deuterium slows neutrons while absorbing very few of them.</p>
+          </section>
+        </aside>
+      </main>
+
+      <footer>
+        <span>NEUTRON DRIFT / INTERACTIVE LEARNING MODEL</span>
+        <span>Energy, geometry, and outcomes are simplified.</span>
+      </footer>
+    </div>
+    <script type="module" src="./game.js"></script>
+  </body>
+</html>
