@@ -134,7 +134,7 @@ button { font: inherit; }
 .reactor-frame {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 1.45 / 1;
+  aspect-ratio: 1.12 / 1;
   min-height: 520px;
   border: 1px solid rgba(119, 173, 172, .24);
   background: #061013;
@@ -350,4 +350,138 @@ footer { min-height: 58px; display: flex; align-items: center; justify-content: 
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* Reactor console: deep blue glass, machined edges, warm fuel highlights. */
+body {
+  background: radial-gradient(ellipse at 28% 20%, #122e43 0, transparent 55%),
+    radial-gradient(ellipse at 90% 60%, #101e32 0, transparent 50%), #040a12;
+}
+.app-shell { width: min(1500px, 100%); }
+.site-header { border-color: #294454; }
+.brand strong { font-size: 1rem; letter-spacing: .18em; }
+.brand small { color: #7eb9cc; font-size: .75rem; }
+.brand-mark { box-shadow: 0 0 26px #63dfed28; }
+.model-tag { font-size: .75rem; }
+.icon-button { border-radius: 6px; background: linear-gradient(#162b3c, #0b1927); font-size: .875rem; }
+.game-layout { gap: 22px; padding-top: 22px; }
+.score-strip { background: linear-gradient(110deg, #172c3d, #0a1826); border-color: #314858; border-radius: 10px 10px 0 0; }
+.score-strip span, .panel-heading span { font-size: .75rem; color: #9bb5c4; letter-spacing: .09em; }
+.score-strip strong { font-size: 1.4rem; color: #e5f9ff; text-shadow: 0 0 20px #7bcced30; }
+.score-strip .signal strong { font-size: .875rem; }
+.reactor-frame { border-color: #314858; border-radius: 0 0 10px 10px; background: #040b14; box-shadow: 0 25px 80px #0008, 0 0 70px #58ceef08; }
+.frame-label { font-size: .75rem; color: #8fb6c4; }
+.game-overlay { background: linear-gradient(90deg, #030b14f5, #071421df 48%, #07142155); }
+.game-overlay .eyebrow { font-size: .75rem; color: #90cedf; }
+.game-overlay h1 { font-weight: 600; font-size: clamp(2.4rem, 4.7vw, 4.8rem); }
+.game-overlay h1 em { text-shadow: 0 0 40px #55e1e833; }
+.game-overlay > p { color: #b3c9d6; font-size: 1rem; }
+.game-overlay > small { font-size: .75rem; color: #8fa8b7; }
+.start-controls > div { font-size: .875rem; color: #a4bdcb; }
+kbd { font-size: .75rem; border-radius: 5px; }
+.primary-button { border-radius: 6px; background: linear-gradient(110deg, #a5fff0, #5ed5e3); box-shadow: 0 0 32px #67e8db25, inset 0 1px 0 #fff8; }
+.primary-button:hover { box-shadow: 0 0 38px #67e8db45; }
+.instrument-panel { gap: 15px; }
+.instrument-panel > section { border-color: #294252; border-radius: 9px; background: linear-gradient(135deg, #142838e8, #0a1725f0); box-shadow: inset 0 1px 0 #c5eeff09, 0 8px 26px #0002; }
+.panel-heading b { font-size: .875rem; }
+.energy-track { height: 12px; opacity: 1; border-radius: 3px; box-shadow: 0 0 20px #66dccb13; }
+.energy-labels { font-size: .75rem; color: #9cb2bd; }
+.state-card { border-radius: 6px; }
+.state-card span { font-size: .875rem; }
+.state-card p, .objective-panel p { font-size: .875rem; color: #a6bdca; }
+.objective-panel h3 { font-size: 1.125rem; }
+.legend-panel li { min-height: 58px; }
+.legend-panel span { font-size: .8125rem; color: #9bb2c2; }
+.legend-panel b { font-size: .875rem; color: #d6e6ef; }
+.field-note span { font-size: .75rem; }
+.field-note p { font-size: .875rem; color: #9eb7c6; }
+.canvas-message { border-radius: 5px; font-size: .875rem; background: #071521e8; box-shadow: 0 5px 20px #0005; max-width: 90%; }
+.report { background: #061321f5; }
+.report-stats span { font-size: .75rem; }
+.lesson { font-size: .875rem; }
+.ledger-grid span { font-size: .75rem; }
+.ledger-equation { font-size: .8125rem; }
+.pause-overlay { background: #051321c9; }
+footer { font-size: .75rem; color: #8199aa; }
+
+/* The desktop console follows the window height, not the canvas aspect ratio.
+   Small screens and enlarged text retain normal document flow for accessibility. */
+@media (min-width: 821px) and (min-height: 600px) {
+  .app-shell {
+    height: 100dvh;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: 58px minmax(0, 1fr);
+    padding-inline: clamp(14px, 2vw, 32px);
+  }
+  .site-header { height: auto; min-height: 0; }
+  .game-layout {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) 326px;
+    gap: 16px;
+    padding-block: 12px;
+  }
+  .play-column {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .score-strip { flex: 0 0 auto; min-height: 54px; }
+  .score-strip > div { padding: 8px 14px; }
+  .score-strip strong { font-size: 1.15rem; }
+  .reactor-frame {
+    flex: 1 1 0;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+  .instrument-panel { min-height: 0; gap: 20px; }
+  .energy-panel, .objective-panel, .legend-panel { padding: 12px; }
+  .energy-track { margin-top: 14px; }
+  .state-card { margin-top: 12px; padding: 9px; }
+  .state-card p { margin-top: 4px; }
+  .objective-visual { height: 30px; margin-top: 7px; }
+  .mini-fuel { width: 27px; height: 27px; }
+  .objective-panel h3 { font-size: 1rem; }
+  .legend-panel ul { margin-top: 6px; }
+  .legend-panel li { min-height: 40px; }
+  .field-note { padding: 10px 12px; }
+  .field-note p { margin-top: 4px; }
+  footer { min-height: 0; gap: 12px; font-size: .75rem; }
+  .touch-controls { flex: 0 0 auto; padding-top: 8px; }
+  .game-overlay { padding: clamp(20px, 3vh, 42px); overflow-y: auto; align-content: safe center; }
+  .game-overlay h1 { font-size: clamp(2rem, 5.8vh, 4.5rem); }
+  .game-overlay > p { margin-block: 14px; }
+  .game-overlay .eyebrow { margin-bottom: 12px; }
+  .start-controls { margin-bottom: 18px; }
+  .report { align-content: start; }
+}
+
+@media (min-width: 821px) and (min-height: 600px) and (max-height: 760px) {
+  .app-shell { grid-template-rows: 50px minmax(0, 1fr); }
+  .game-layout { padding-block: 8px; }
+  .instrument-panel { gap: 16px; }
+  .energy-panel, .objective-panel, .legend-panel, .field-note { padding: 9px 12px; }
+  .panel-heading { min-height: 18px; }
+  .energy-track { margin-top: 10px; margin-bottom: 6px; height: 9px; }
+  .state-card { margin-top: 9px; padding: 7px; }
+  .state-card p, .objective-panel p, .field-note p { line-height: 1.35; }
+  .objective-visual { display: none; }
+  .objective-panel h3 { margin-top: 7px; margin-bottom: 5px; }
+  .legend-panel li { min-height: 36px; }
+  .game-overlay > p { margin-block: 10px; }
+  .primary-button { min-height: 46px; }
+}
+@media (max-width: 820px) {
+  .reactor-frame { aspect-ratio: 1; }
+}
+@media (max-width: 560px) {
+  .brand strong { font-size: .75rem; }
+  .brand small { font-size: .75rem; }
+  .icon-button { font-size: .75rem; padding-inline: 7px; }
+  .game-overlay { padding: 22px; background: #051321e8; }
+  .game-overlay h1 { font-size: clamp(2rem, 9vw, 3rem); }
+  .game-overlay > p { font-size: .875rem; margin-block: 12px; }
+  .start-controls { margin-bottom: 15px; gap: 10px; }
+  .game-overlay .eyebrow { margin-bottom: 12px; }
+  .game-overlay { overflow-y: auto; }
 }

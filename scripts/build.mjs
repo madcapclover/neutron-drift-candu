@@ -4,7 +4,7 @@ const output = new URL("../dist/", import.meta.url);
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 
-for (const file of ["index.html", "styles.css", "engine.js", "game.js"]) {
+for (const file of ["index.html", "styles.css", "engine.js", "game.js", "renderer.js"]) {
   const source = new URL(`../${file}`, import.meta.url);
   const contents = await readFile(source, "utf8");
   if (!contents.trim()) throw new Error(`${file} is empty`);

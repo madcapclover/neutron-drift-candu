@@ -16,7 +16,6 @@
           <span><strong>NEUTRON DRIFT</strong><small>CANDU</small></span>
         </a>
         <div class="header-actions">
-          <span class="model-tag"><i></i> EDUCATION MODEL</span>
           <button class="icon-button" id="guide-button" type="button" aria-label="Hide flight guide" title="Toggle dotted flight guide">Guide on</button>
           <button class="icon-button" id="sound-button" type="button" aria-label="Mute sound" title="Mute sound">Sound on</button>
           <button class="icon-button" id="pause-button" type="button" aria-label="Pause game" title="Pause game">Pause</button>
@@ -33,7 +32,6 @@
           </div>
 
           <div class="reactor-frame" id="reactor-frame">
-            <div class="frame-label frame-label-top">CALANDRIA // END-ON SLICE</div>
             <canvas id="game-canvas" width="1000" height="1000" aria-label="A top-down arcade simulation of a neutron moving through a CANDU calandria"></canvas>
             <div class="canvas-message" id="canvas-message" aria-live="polite"></div>
 
@@ -60,8 +58,6 @@
               </div>
               <div class="lesson" id="report-tip">Use the moderator lanes to become thermal before entering fuel.</div>
               <button class="primary-button" id="restart-button" type="button"><span>Start new lineage</span><b>↻</b></button>
-              <button class="text-button" id="ledger-button" type="button" aria-expanded="false">Open neutron ledger</button>
-              <div class="ledger" id="ledger-panel" hidden></div>
             </section>
 
             <section class="game-overlay pause-overlay" id="pause-overlay" aria-labelledby="pause-title">
@@ -111,17 +107,9 @@
             </ul>
           </section>
 
-          <section class="field-note">
-            <span>FIELD NOTE</span>
-            <p id="field-note">Heavy water is an unusually efficient moderator because deuterium slows neutrons while absorbing very few of them.</p>
-          </section>
         </aside>
       </main>
 
-      <footer>
-        <span>NEUTRON DRIFT / INTERACTIVE LEARNING MODEL</span>
-        <span>Energy, geometry, and outcomes are simplified.</span>
-      </footer>
     </div>
     <script type="module" src="./game.js"></script>
   </body>
