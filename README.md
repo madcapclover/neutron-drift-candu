@@ -4,6 +4,10 @@ A scientific arcade game about guiding a neutron through a stylized CANDU caland
 
 Steer through moving deuterium atoms to slow into the thermal energy band, then enter an orange fuel channel to continue the fission lineage. Avoid glowing green poisoned channels, moving control rods, and the calandria boundary.
 
+## Play
+
+[Play Neutron Drift: CANDU](https://madcapclover.github.io/neutron-drift-candu/)
+
 ## Play locally
 
 Requires Node.js 18 or newer.
