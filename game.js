@@ -120,6 +120,13 @@ function keyVector() {
 window.addEventListener("keydown", (event) => {
   if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "w", "a", "s", "d", "W", "A", "S", "D", " "].includes(event.key)) event.preventDefault();
   if (event.key === " " || event.key === "Escape" || event.key.toLowerCase() === "p") {
+    // Holding Space must not immediately pause the freshly restarted run.
+    if (event.repeat) return;
+    if (event.key === " " && game.phase === GamePhase.GAMEOVER) {
+      if (!elements["gameover-overlay"].classList.contains("visible")) showGameOver();
+      beginRun();
+      return;
+    }
     if ([GamePhase.PLAYING, GamePhase.FISSION, GamePhase.PAUSED].includes(game.phase)) pauseGame();
     return;
   }

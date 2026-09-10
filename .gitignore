@@ -1,0 +1,6 @@
+dist/
+.DS_Store
+npm-debug.log*
+.openai/
+github-upload/
+github-restart-update/
